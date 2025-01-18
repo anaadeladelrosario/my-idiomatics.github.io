@@ -1,94 +1,71 @@
-import Image from "next/image";
+'use client'
+
 import styles from "./page.module.css";
+import "./globals.css";
+import { useState } from "react";
+
+const apikey = process.env.NEXT_PUBLIC_API_KEY
 
 export default function Home() {
+  const [prompt, setPrompt] = useState('');
+  const [response, setResponse] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+    const idiomatic = `Instead of doing word-for-word translations, interpret and translate the idiomatic expression and detect the language the idiom is written in and the desired language output language if specified: ${prompt}`
+    e.preventDefault();
+    console.log("prompt", prompt)
+    console.log("api", apikey)
+    console.log("idiomatic", idiomatic)
+    setLoading(true);
+    setResponse('');
+    
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+         /* 'Authorization': `Bearer ${apikey}` ,*/
+        },
+        body: JSON.stringify({idiomatic}),
+      });
+
+      const data = await res.json();
+      setResponse(data.choices[0].text);
+    } catch (error) {
+      console.error('Error:', error);
+      setResponse('Error communicating with OpenAI');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+        <div className={"overflow-y-auto p-10 rounded-md max-w-3xl mx-auto"}>
+          <h1 className="text-3xl font-bold underline">My idiomatics</h1>
+      <form onSubmit={handleSubmit}>
+        <textarea
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          placeholder="Enter your idiom"
         />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+        <button  className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md" type="submit" disabled={loading}>
+          {loading ? 'Loading...' : 'Send'}
+        </button>
+      </form>
+      {response && (
+        <div>
+          <h2>Response from OpenAI:</h2>
+          <p>{response}</p>
+        </div>
+      )}
+          
         </div>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      <footer className={styles.footer}>    
+      <p>Intended meaning rather than translating literally...</p>    
       </footer>
     </div>
   );
