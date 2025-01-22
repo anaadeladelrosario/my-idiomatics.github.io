@@ -27,10 +27,9 @@ export default function Home() {
       throw new Error(`HTTP error! Status: ${res.status}`);
     }
       const data = await res.json();
-      setResponse(data.response);
+      setResponse(data.completion.choices[0].message.content);
     } catch (error) {
-      console.error('Error:', error);
-      setResponse('Error communicating with OpenAI');
+      setResponse(`Error: ${error}`);
     } finally {
       setLoading(false);
     }
