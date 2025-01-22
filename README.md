@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My Idiomatics
 
-## Getting Started
+## Overview
 
-First, run the development server:
+My Idiomatics is a web application designed to help users explore and understand idiomatic expressions in various languages. Built with Next.js and powered by OpenAI's language models, this project provides an interactive platform for language learners and enthusiasts.
 
+## Features
+
+- 🌐 Multilingual Idiomatic Expression Exploration
+- 🤖 AI-Powered Explanations and Translations
+- 🚀 Fast and Responsive Next.js Frontend
+- 🎨 Modern, Clean User Interface
+
+## Technologies Used
+
+- [Next.js](https://nextjs.org/) (v15.1.5)
+- [React](https://reactjs.org/) (v19.0.0)
+- [OpenAI API](https://openai.com/api/)
+- [UnoCSS](https://unocss.dev/) for styling
+- TypeScript
+
+## Prerequisites
+
+- Node.js (v18 or later)
+- npm, yarn, or pnpm
+- OpenAI API Key (for full functionality) or groqcloud API key
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/my-idiomatics.github.io.git
+   cd my-idiomatics.github.io
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   ```
+
+3. Set up environment variables:
+   Create a `.env.local` file in the project root and add your OpenAI API key:
+   ```
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
+
+## Development
+
+Start the development server:
 ```bash
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To create a production build:
+```bash
+npm run build
+# then
+npm start
+```
 
-## Learn More
+## Additional Scripts
 
-To learn more about Next.js, take a look at the following resources:
+- `npm run lint`: Run ESLint
+- `npm run unocss:dev`: Watch and compile UnoCSS
+- `npm run unocss:build`: Build UnoCSS for production
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is open-source and available under the MIT License.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Acknowledgments
+
+- [Next.js](https://nextjs.org/)
+- [OpenAI](https://openai.com/)
+- [UnoCSS](https://unocss.dev/)
